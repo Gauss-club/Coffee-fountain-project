@@ -1,19 +1,17 @@
 #define trigger 9
 #define echo 10
 #define Led 7
-long Lecture_echo;
-long cm;
+long duration;
+int distance;
 
-float time=0,distance=0;
  
 void setup()
 {
-Serial.begin(9600);
 
  pinMode(trigger,OUTPUT);
  pinMode(echo,INPUT);
  pinMode(Led,OUTPUT);
-
+ Serial.begin(2600);
  delay(2000);
 }
  
@@ -26,10 +24,11 @@ void loop()
  delayMicroseconds(10);
  digitalWrite(trigger,LOW);
  delayMicroseconds(2);
- time=pulseIn(echo,HIGH);
  
- distance=time*200/20000;
- if(distance >=100)
+ duration = pulseIn(echo,HIGH);
+ distance = 0.034*duration /2;
+ Serial.print(distance);
+ if(distance <=10)
  {
    digitalWrite(Led,HIGH);
  }
